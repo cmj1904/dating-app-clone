@@ -12,7 +12,7 @@ const connection_url = 'mongodb+srv://charlesj:Clmt1904!@cluster0.kxkrln0.mongod
 
 //Middleware
 app.use(express.json())
-// app.use(Cors)
+app.use(Cors())
 
 //DB Config
 mongoose.connect(connection_url)
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.post('/dating/cards', (req, res) => {
     const dbCard = req.body
     Cards.create(dbCard, (err, data) => {
-        if(err){
+        if (err) {
             res.status(500).send(err)
         } else {
             res.status(201).send(data)
@@ -35,15 +35,14 @@ app.post('/dating/cards', (req, res) => {
 })
 
 app.get('/dating/cards', (req, res) => {
-    // eslint-disable-next-line array-callback-return
     Cards.find((err, data) => {
-        if(err) {
+        if (err) {
             res.status(500).send(err)
         } else {
             res.status(200).send(data)
-        }
+            }
+        })
     })
-})
 
 //Listener
 app.listen(port, () => console.log(`Listening on localhost: ${port}`))
